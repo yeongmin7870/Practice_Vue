@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>좋아요</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <li v-if="flag" v-for="like in liked">
+            {{like.text}}
+        </li>
+        <button v-on:click="onClickButton()">Like</button>
+    </div>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            flag: false,
+            liked: [
+                {text: "가"},
+                {text: "나"},
+                {text: "다"},
+            ]
+        },
+        methods: {
+            onClickButton(){
+                if (this.flag) return this.flag = false
+                return this.flag = true
+            },
+        },
+
+    });
+</script>
+</body>
+</html>

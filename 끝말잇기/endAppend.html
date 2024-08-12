@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id = "root">
+        <word-relay></word-relay>
+        <word-relay></word-relay>
+        <word-relay></word-relay>
+    </div>
+    <script>
+        const words = ['국밥', '인도', '한국',
+            '파리올림픽', '바게트','빵',
+            '수면','양치질','재생버튼'
+        ];
+
+        Vue.component('word-relay',{
+            template:`
+              <div>
+                  <div>{{word}}</div>
+                  <form v-on:submit="onSubmitForm">
+                    <input type="text" v-model="value2" ref="answer">
+                    <button>입력!</button>
+                  </form>
+                  <div>{{result}}</div>
+              </div>
+            `,
+            data(){
+                return{
+                word: words[Math.ceil(Math.random() * (words.length-1))],
+                value2:'',
+                result:'',
+            }},
+            methods:{
+                onSubmitForm(e){
+                    e.preventDefault()
+                    if(this.value2[0] === this.word[this.word.length -1]) {
+                        this.result = "정답"
+                        this.word = this.value2
+                        this.$refs.answer.focus()
+                        this.value2=''
+                    }else{
+                        this.result = "땡"
+                        this.$refs.answer.focus()
+                        this.value2=''
+                    }
+                }
+            }
+        })
+    </script>
+<script>
+    const app = new Vue({
+        el:'#root',
+    });
+</script>
+</body>
+</html>
